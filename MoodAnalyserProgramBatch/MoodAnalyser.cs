@@ -7,17 +7,12 @@ using System.Threading.Tasks;
 namespace MoodAnalyserProgramBatch
 {
     public class MoodAnalyser
-    {
-        string message;
-        public MoodAnalyser(string message)
-        {
-            this.message=message;
-        }
+    { 
         /// <summary>
-        /// Uc1 Given Message and Return it
+        /// Uc1 Given Message and Return it(Method)
         /// </summary>
         /// <returns></returns>
-        public string CheckMoodAnalyser()
+        public string CheckMoodAnalyser(string message)
         {
             if (message.ToLower().Contains("sad"))
             {
