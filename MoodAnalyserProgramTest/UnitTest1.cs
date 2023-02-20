@@ -10,8 +10,8 @@ namespace MoodAnalyserProgramTest
         public void GivenSadMood_whenAnalyser_ReturnTheSadMessage_Method(string message,string expect)
         {
             //act
-            MoodAnalyser analyser = new MoodAnalyser();
-            string result = analyser.CheckMoodAnalyser(message);
+            MoodAnalyser analyser = new MoodAnalyser(message);
+            string result = analyser.CheckMoodAnalyser();
             Assert.AreEqual(expect, result);
         }
     }
