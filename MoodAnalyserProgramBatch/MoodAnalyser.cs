@@ -22,14 +22,22 @@ namespace MoodAnalyserProgramBatch
         /// <returns></returns>
         public string CheckMoodAnalyser()
         {
-            if (this.message.ToLower().Contains("sad"))
+            try
             {
-                return "Sad";
-            }
-            else
+                if (this.message.ToLower().Contains("sad"))
+                {
+                    return "Sad";
+                }
+                else
+                {
+                    return "Happy";
+                }
+            } 
+            catch (NullReferenceException)
             {
                 return "Happy";
             }
+           
         }
     }       
 }
