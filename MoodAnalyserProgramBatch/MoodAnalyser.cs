@@ -24,20 +24,18 @@ namespace MoodAnalyserProgramBatch
         {
             try
             {
+                if(this.message.Equals(string.Empty))
+                    throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.EMPTY_MOOD, "Mood is Empty");
                 if (this.message.ToLower().Contains("sad"))
-                {
                     return "Sad";
-                }
                 else
-                {
                     return "Happy";
-                }
-            } 
+            }
             catch (NullReferenceException)
             {
-                return "Happy";
+                throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NULL_MOOD,"Mood is Null");
             }
-           
+
         }
-    }       
+    }
 }
