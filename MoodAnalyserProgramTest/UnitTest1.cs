@@ -28,12 +28,22 @@ namespace MoodAnalyserProgramTest
             
         }
         [TestCategory("Reflection")]
+        [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser")] //UC4.1Check two object is equal or not
+        [DataRow("MoodAnalyser", "MoodAnalyser")]  //Uc4.2 Inproper class name and throw Exception
         [TestMethod]
-        public void GivenMoodAnalyserClassName_ReturnMoodAnalyserObjectoOfThatClass()
+        public void GivenMoodAnalyserClassName_ReturnMoodAnalyserObjectoOfThatClass(string className,string constructorName)
         {
-            object expected = new MoodAnalyser();  //Default constructor object
-            object actual = MoodAnalyserReflection.CreatMoodAnalyser("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser");
-            expected.Equals(actual);
+            try
+            {
+                object expected = new MoodAnalyser();  //Default constructor object
+                object actual = MoodAnalyserReflection.CreatMoodAnalyser(className,constructorName);
+                expected.Equals(actual);
+            } 
+            catch(CustomMoodAnalyserExpection ex)
+            {
+                Assert.AreEqual(ex.Message, "Class not found");
+            }
+          
         }
     }
 }

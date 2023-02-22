@@ -12,7 +12,8 @@ namespace MoodAnalyserProgramBatch
         public enum MoodAnalyseType
         {
             EMPTY_MOOD,
-            NULL_MOOD
+            NULL_MOOD,
+            NO_SUCH_CLASS
         }
         public MoodAnalyseType type; //variable for enum
         public CustomMoodAnalyserExpection(MoodAnalyseType type, string message) : base(message)
