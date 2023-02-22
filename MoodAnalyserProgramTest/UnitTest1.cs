@@ -1,9 +1,12 @@
 using MoodAnalyserProgramBatch;
+using System.ComponentModel;
+
 namespace MoodAnalyserProgramTest
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestCategory("Exception Handling")]
         [DataRow("I am in a Sad mood", "Sad")] ////Uc1.1 Given Sad Mood And return Sad
         [DataRow("I am in a Any mood", "Happy")] ////Uc1.2 Given any Mood and return Happy 
         //// [DataRow(null,"Happy")] //Uc2.1 Given Null value and return Happy
@@ -23,6 +26,14 @@ namespace MoodAnalyserProgramTest
                 Assert.AreEqual(ex.Message, expect);
             }
             
+        }
+        [TestCategory("Reflection")]
+        [TestMethod]
+        public void GivenMoodAnalyserClassName_ReturnMoodAnalyserObjectoOfThatClass()
+        {
+            object expected = new MoodAnalyser();  //Default constructor object
+            object actual = MoodAnalyserReflection.CreatMoodAnalyser("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser");
+            expected.Equals(actual);
         }
     }
 }

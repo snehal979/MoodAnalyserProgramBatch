@@ -8,6 +8,11 @@ namespace MoodAnalyserProgramBatch
 {
     public class MoodAnalyser
     {
+        //Default constructor
+        public MoodAnalyser()
+        {
+
+        }
         /// <summary>
         /// Refactor code 
         /// </summary>
