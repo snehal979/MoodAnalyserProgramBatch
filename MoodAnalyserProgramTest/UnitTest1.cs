@@ -126,5 +126,21 @@ namespace MoodAnalyserProgramTest
             string actual = MoodAnalyserReflection.CheckTheField(message,fieldName);
             Assert.AreEqual(output,actual);
         }
+
+        [TestMethod]
+        //Uc7.2Happy Message When Improper MethoShould ThrowMoodAnalysisException
+        [DataRow("Happy", "absentVariable", "Happy","Field not found")] 
+        public void GiveHappy_ReturnHappy_FieldSet(string message, string fieldName, string output,string expect)
+        {
+            try
+            {
+                string actual = MoodAnalyserReflection.CheckTheField(message, fieldName);
+                Assert.AreEqual(output, actual);
+            } 
+            catch(CustomMoodAnalyserExpection ex)
+            {
+                Assert.AreEqual(ex.Message, expect);
+            }
+        }
     }
 }
