@@ -102,10 +102,29 @@ namespace MoodAnalyserProgramTest
         /// <param name="expected"></param>
         [TestMethod]
         [DataRow("I am in Happy Mood", "CheckMoodAnalyser","Happy")] //Uc6.1 In proper MethodPass Happy message and return  
+        [DataRow("I am in Happy Mood", "Demo", "Happy")] //Uc6.2 In Improper Method Pass and return Exception 
         public void GivenHappyMoodAnalyser_ReturnHappyMessage(string message,string methodName, string expected)
         {
-            string actual = MoodAnalyserReflection.InvokeAnalyseMoodAnalyser(message,methodName ); //message : "Happy;methodName:Constructor name
-            Assert.AreEqual(expected, actual);
+            try
+            {
+                string actual = MoodAnalyserReflection.InvokeAnalyseMoodAnalyser(message, methodName); //message : "Happy;methodName:Constructor name
+                Assert.AreEqual(expected, actual);
+            }
+            catch(CustomMoodAnalyserExpection ex)
+            {
+                Assert.AreEqual(ex.Message, "Method not found");
+            }
+        }
+
+        /// <summary>
+        /// Uc 7 Function To set the field Dyanamically Using Reflection 
+        /// </summary>
+        [TestMethod]
+        [DataRow("Happy","message","Happy")] //Uc7.1 Set Happy Message wit Reflector Should Return HAPPY
+        public void GiveHappy_ReturnHappy_FieldSet(string message ,string fieldName,string output)
+        {
+            string actual = MoodAnalyserReflection.CheckTheField(message,fieldName);
+            Assert.AreEqual(output,actual);
         }
     }
 }

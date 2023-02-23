@@ -16,7 +16,7 @@ namespace MoodAnalyserProgramBatch
         /// <summary>
         /// Refactor code 
         /// </summary>
-        string message;
+        public string message;
         public MoodAnalyser(string message)
         {
             this.message=message;

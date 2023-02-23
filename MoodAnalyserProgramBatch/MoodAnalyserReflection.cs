@@ -90,5 +90,18 @@ namespace MoodAnalyserProgramBatch
             }
             
         }
+        /// <summary>
+        /// Uc7 Function To set the field Dyanamically Using Reflection
+        /// </summary>
+        /// </summary>
+        /// <returns></returns>
+        public static string CheckTheField(string message,string fieldName)
+        {
+            MoodAnalyser moodAnalyser = new MoodAnalyser();
+            Type type = typeof(MoodAnalyser);
+            FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+            fieldInfo.SetValue(moodAnalyser, message);
+            return moodAnalyser.message;
+        }
     }
 }
