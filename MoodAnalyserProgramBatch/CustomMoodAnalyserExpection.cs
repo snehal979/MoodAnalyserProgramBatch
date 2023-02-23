@@ -16,7 +16,8 @@ namespace MoodAnalyserProgramBatch
             NO_SUCH_CLASS,
             NO_SUCH_CONSTRUCTOR,
             NO_SUCH_METHOD,
-            NO_SUCH_FIELD
+            NO_SUCH_FIELD,
+            NO_SUCH_NULLFIELD
         }
         public MoodAnalyseType type; //variable for enum
         public CustomMoodAnalyserExpection(MoodAnalyseType type, string message) : base(message)

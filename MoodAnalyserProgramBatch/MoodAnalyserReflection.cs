@@ -102,6 +102,11 @@ namespace MoodAnalyserProgramBatch
                 MoodAnalyser moodAnalyser = new MoodAnalyser();
                 Type type = typeof(MoodAnalyser);
                 FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+                if (message == null)
+                {
+                    throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_NULLFIELD, "Field is not null");
+
+                }
                 fieldInfo.SetValue(moodAnalyser, message);
                 return moodAnalyser.message;
             }
