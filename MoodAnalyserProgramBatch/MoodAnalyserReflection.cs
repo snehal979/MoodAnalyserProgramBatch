@@ -67,5 +67,28 @@ namespace MoodAnalyserProgramBatch
                 throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_CLASS, "Class not found");
             }
         }
+        /// <summary>
+        /// Uc6 invoke Method – analyseMood
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="methodName"></param>
+        /// <returns></returns>
+        public static string InvokeAnalyseMoodAnalyser(string message,string methodName)
+        {
+            try
+            {
+                Type type = Type.GetType("MoodAnalyserProgramBatch.MoodAnalyser");// class name Pass
+                // making of object of constructor using parameter - method
+                object moodAnalyserObject = MoodAnalyserReflection.CreatMoodAnalyser_Parametric("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser", message);
+                MethodInfo analyseMoodInfo = type.GetMethod(methodName);
+                object mood = analyseMoodInfo.Invoke(moodAnalyserObject, null);
+                return mood.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_METHOD, "Method not found");
+            }
+            
+        }
     }
 }

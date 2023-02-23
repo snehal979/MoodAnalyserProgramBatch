@@ -33,7 +33,7 @@ namespace MoodAnalyserProgramTest
             }
         }
         /// <summary>
-        /// Reflrction Uc4
+        /// Reflrction Uc4 for Default constructor by passing message
         /// </summary>
         /// <param name="className"></param>
         /// <param name="constructorName"></param>
@@ -64,7 +64,7 @@ namespace MoodAnalyserProgramTest
             }
         }
         /// <summary>
-        /// Uc 5
+        /// Uc 5for parametrised constructor by passing message
         /// </summary>
         /// <param name="className"></param>
         /// <param name="constructorName"></param>
@@ -92,6 +92,20 @@ namespace MoodAnalyserProgramTest
             {
                 Assert.AreEqual(ex.Message, output);
             }
+        }
+
+        /// <summary>
+        /// Uc6 invoke Method – analyseMood
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="methodName"></param>
+        /// <param name="expected"></param>
+        [TestMethod]
+        [DataRow("I am in Happy Mood", "CheckMoodAnalyser","Happy")] //Uc6.1 In proper MethodPass Happy message and return  
+        public void GivenHappyMoodAnalyser_ReturnHappyMessage(string message,string methodName, string expected)
+        {
+            string actual = MoodAnalyserReflection.InvokeAnalyseMoodAnalyser(message,methodName ); //message : "Happy;methodName:Constructor name
+            Assert.AreEqual(expected, actual);
         }
     }
 }
