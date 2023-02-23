@@ -10,6 +10,13 @@ namespace MoodAnalyserProgramBatch
 {
     public class MoodAnalyserReflection
     {
+        /// <summary>
+        /// UC 4-for Default constructor by passing message
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructorName"></param>
+        /// <returns></returns>
+        /// <exception cref="CustomMoodAnalyserExpection"></exception>
         public static object CreatMoodAnalyser(string className,string constructorName)
         {
             string pattern = @"." + constructorName +"$";
@@ -31,7 +38,20 @@ namespace MoodAnalyserProgramBatch
             {
                 throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_CONSTRUCTOR,"Constructor not found");
             }
-            
+        }
+        /// <summary>
+        ///  Uc5 for parametrised constructor by passing message
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructorName"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static object CreatMoodAnalyser_Parametric(string className, string constructorName,string message)
+        {
+            Type type = typeof(MoodAnalyser);
+            ConstructorInfo newCont = type.GetConstructor(new[] { typeof(string) });
+            object instance = newCont.Invoke(new object[] { message });
+            return instance;
         }
     }
 }
