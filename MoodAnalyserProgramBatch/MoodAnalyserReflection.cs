@@ -51,9 +51,16 @@ namespace MoodAnalyserProgramBatch
             Type type = typeof(MoodAnalyser);
             if(type.Name.Equals(className) || type.FullName.Equals(className))
             {
-                ConstructorInfo newCont = type.GetConstructor(new[] { typeof(string) });
-                object instance = newCont.Invoke(new object[] { message });
-                return instance;
+                if (type.Name.Equals(constructorName))
+                {
+                    ConstructorInfo newCont = type.GetConstructor(new[] { typeof(string) });
+                    object instance = newCont.Invoke(new object[] { message });
+                    return instance;
+                }
+                else
+                {
+                    throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
+                }
             }
             else
             {

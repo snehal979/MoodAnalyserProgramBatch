@@ -5,7 +5,7 @@ namespace MoodAnalyserProgramTest
 {
     [TestClass]
     public class UnitTest1
-    { 
+    {
         /// <summary>
         /// Exception Uc1,Uc2,Uc3
         /// </summary>
@@ -26,7 +26,8 @@ namespace MoodAnalyserProgramTest
                 MoodAnalyser analyser = new MoodAnalyser(message);
                 string result = analyser.CheckMoodAnalyser();
                 Assert.AreEqual(expect, result);
-            } catch (CustomMoodAnalyserExpection ex)
+            }
+            catch (CustomMoodAnalyserExpection ex)
             {
                 Assert.AreEqual(ex.Message, expect);
             }
@@ -39,25 +40,25 @@ namespace MoodAnalyserProgramTest
         [TestCategory("Reflection")]
         [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser")] //UC4.1Check two object is equal or not
         [TestMethod]
-        public void GivenMoodAnalyserClassName_ReturnMoodAnalyserObjectoOfThatClass(string className,string constructorName)
+        public void GivenMoodAnalyserClassName_ReturnMoodAnalyserObjectoOfThatClass(string className, string constructorName)
         {
-             object expected = new MoodAnalyser();  //Default constructor object
-             object actual = MoodAnalyserReflection.CreatMoodAnalyser(className,constructorName);
+            object expected = new MoodAnalyser();  //Default constructor object
+            object actual = MoodAnalyserReflection.CreatMoodAnalyser(className, constructorName);
             expected.Equals(actual);
         }
 
         [TestMethod]
-        [DataRow("MoodA", "MoodAnalyser","Class not found")]  //Uc4.2 Inproper class name and throw Exception //Error
-        [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "Demo","Constructor not found")] //Uc4.3 Inproper constructorName name and throw Exception//Error
-        public void GivenMoodAnalyser_ImpropeName_Return_ExceptionObjectoOfThatClass(string className,string constructorName,string exceptMsg)
+        [DataRow("MoodA", "MoodAnalyser", "Class not found")]  //Uc4.2 Inproper class name and throw Exception //Error
+        [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "Demo", "Constructor not found")] //Uc4.3 Inproper constructorName name and throw Exception//Error
+        public void GivenMoodAnalyser_ImpropeName_Return_ExceptionObjectoOfThatClass(string className, string constructorName, string exceptMsg)
         {
             try
             {
-               // object expected = new MoodAnalyser();  //Default constructor object
+                // object expected = new MoodAnalyser();  //Default constructor object
                 object actual = MoodAnalyserReflection.CreatMoodAnalyser(className, constructorName);
-               // expected.Equals(actual);
+                // expected.Equals(actual);
             }
-            catch(CustomMoodAnalyserExpection ex)
+            catch (CustomMoodAnalyserExpection ex)
             {
                 Assert.AreEqual(ex.Message, exceptMsg);
             }
@@ -68,20 +69,28 @@ namespace MoodAnalyserProgramTest
         /// <param name="className"></param>
         /// <param name="constructorName"></param>
         /// <param name="output"></param>
+
         [TestMethod]
-        [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser","Happy")]
-        [DataRow("Analyser", "MoodAnalyser", "Happy")]
-        public void GivenMoodAnalyser_ReturnObject_UsingParametrizeConstructor(string className,string constructorName,string output)
+        [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser", "Happy")] //Uc 5.1Check two object is equal or not
+        public void GivenMoodAnalyser_ReturnObject_UsingParametrizeConstructor(string className, string constructorName, string output)
+        {
+            object expected = new MoodAnalyser(output);  //Parametrized Constructor
+            object actual = MoodAnalyserReflection.CreatMoodAnalyser_Parametric(className, constructorName, output);
+            expected.Equals(actual);
+        }
+
+        [TestMethod]
+        [DataRow("Analyser", "MoodAnalyser", "Happy","Class not found")] //Uc 5.2 Inproper class name and throw Exception //Error
+        [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "Demo", "Happy","Constructor not found")] ////Uc 5.3 Inproper constructorName name and throw Exception//Error
+        public void GivenMoodAnalyserInproperName_ReturnObject_UsingParametrizeConstructor(string className, string constructorName, string message, string output)
         {
             try
             {
-                object expected = new MoodAnalyser(output);  //Parametrized Constructor
                 object actual = MoodAnalyserReflection.CreatMoodAnalyser_Parametric(className, constructorName, output);
-                expected.Equals(actual);
             }
             catch (CustomMoodAnalyserExpection ex)
             {
-                Assert.AreEqual(ex.Message, "Class not found");
+                Assert.AreEqual(ex.Message, output);
             }
         }
     }
