@@ -49,9 +49,16 @@ namespace MoodAnalyserProgramBatch
         public static object CreatMoodAnalyser_Parametric(string className, string constructorName,string message)
         {
             Type type = typeof(MoodAnalyser);
-            ConstructorInfo newCont = type.GetConstructor(new[] { typeof(string) });
-            object instance = newCont.Invoke(new object[] { message });
-            return instance;
+            if(type.Name.Equals(className) || type.FullName.Equals(className))
+            {
+                ConstructorInfo newCont = type.GetConstructor(new[] { typeof(string) });
+                object instance = newCont.Invoke(new object[] { message });
+                return instance;
+            }
+            else
+            {
+                throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_CLASS, "Class not found");
+            }
         }
     }
 }

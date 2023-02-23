@@ -70,11 +70,19 @@ namespace MoodAnalyserProgramTest
         /// <param name="output"></param>
         [TestMethod]
         [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser","Happy")]
+        [DataRow("Analyser", "MoodAnalyser", "Happy")]
         public void GivenMoodAnalyser_ReturnObject_UsingParametrizeConstructor(string className,string constructorName,string output)
         {
-            object expected = new MoodAnalyser(output);  //Parametrized Constructor
-            object actual = MoodAnalyserReflection.CreatMoodAnalyser_Parametric(className, constructorName,output);
-            expected.Equals(actual);
+            try
+            {
+                object expected = new MoodAnalyser(output);  //Parametrized Constructor
+                object actual = MoodAnalyserReflection.CreatMoodAnalyser_Parametric(className, constructorName, output);
+                expected.Equals(actual);
+            }
+            catch (CustomMoodAnalyserExpection ex)
+            {
+                Assert.AreEqual(ex.Message, "Class not found");
+            }
         }
     }
 }
