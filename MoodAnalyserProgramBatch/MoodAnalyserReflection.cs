@@ -12,16 +12,26 @@ namespace MoodAnalyserProgramBatch
     {
         public static object CreatMoodAnalyser(string className,string constructorName)
         {
-            try
+            string pattern = @"." + constructorName +"$";
+            Match result = Regex.Match(pattern, className);
+            if (result.Success)
             {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                Type moodAnalyserType = assembly.GetType(className);
-                return Activator.CreateInstance(moodAnalyserType);
+                try
+                {
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    Type moodAnalyserType = assembly.GetType(className);
+                    return Activator.CreateInstance(moodAnalyserType);
+                }
+                catch (ArgumentNullException)
+                {
+                    throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_CLASS, "Class not found");
+                }
             }
-            catch (Exception)
+            else
             {
-                throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_CLASS, "Class not found");
+                throw new CustomMoodAnalyserExpection(CustomMoodAnalyserExpection.MoodAnalyseType.NO_SUCH_CONSTRUCTOR,"Constructor not found");
             }
+            
         }
     }
 }

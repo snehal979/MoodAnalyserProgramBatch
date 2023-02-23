@@ -5,7 +5,12 @@ namespace MoodAnalyserProgramTest
 {
     [TestClass]
     public class UnitTest1
-    {
+    { 
+        /// <summary>
+        /// Exception Uc1,Uc2,Uc3
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="expect"></param>
         [TestCategory("Exception Handling")]
         [DataRow("I am in a Sad mood", "Sad")] ////Uc1.1 Given Sad Mood And return Sad
         [DataRow("I am in a Any mood", "Happy")] ////Uc1.2 Given any Mood and return Happy 
@@ -25,25 +30,37 @@ namespace MoodAnalyserProgramTest
             {
                 Assert.AreEqual(ex.Message, expect);
             }
-            
         }
+        /// <summary>
+        /// Reflrction Uc4
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructorName"></param>
         [TestCategory("Reflection")]
         [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "MoodAnalyser")] //UC4.1Check two object is equal or not
-        [DataRow("MoodAnalyser", "MoodAnalyser")]  //Uc4.2 Inproper class name and throw Exception
         [TestMethod]
         public void GivenMoodAnalyserClassName_ReturnMoodAnalyserObjectoOfThatClass(string className,string constructorName)
+        {
+             object expected = new MoodAnalyser();  //Default constructor object
+             object actual = MoodAnalyserReflection.CreatMoodAnalyser(className,constructorName);
+            expected.Equals(actual);
+        }
+
+        [TestMethod]
+        [DataRow("MoodA", "MoodAnalyser","Class not found")]  //Uc4.2 Inproper class name and throw Exception //Error
+        [DataRow("MoodAnalyserProgramBatch.MoodAnalyser", "Demo","Constructor not found")] //Uc4.3 Inproper constructorName name and throw Exception//Error
+        public void GivenMoodAnalyser_ImpropeName_ReturnException(string className,string constructorName,string exceptMsg)
         {
             try
             {
                 object expected = new MoodAnalyser();  //Default constructor object
-                object actual = MoodAnalyserReflection.CreatMoodAnalyser(className,constructorName);
-                expected.Equals(actual);
-            } 
+                object actual = MoodAnalyserReflection.CreatMoodAnalyser(className, constructorName);
+                Assert.AreEqual(expected, actual);
+            }
             catch(CustomMoodAnalyserExpection ex)
             {
-                Assert.AreEqual(ex.Message, "Class not found");
+                Assert.AreEqual(ex.Message, exceptMsg);
             }
-          
         }
     }
 }
